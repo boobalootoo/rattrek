@@ -14,15 +14,13 @@ map.on('click', async (e) => {
 
   const radiusMeters = 300;
 
-  const query = \`
-    [out:json][timeout:25];
+  const query = `[out:json][timeout:25];
     (
       way(around:${radiusMeters},${lat},${lng})[highway];
     );
     out body;
     >;
-    out skel qt;
-  \`;
+    out skel qt;`;
 
   const url = 'https://overpass-api.de/api/interpreter?data=' + encodeURIComponent(query);
   const response = await fetch(url);
@@ -54,7 +52,7 @@ function explorePaths(geoJson, startCoords) {
     geoJson.features.forEach((feature) => {
       if (feature.geometry.type === "LineString") {
         feature.geometry.coordinates.forEach(([lon, lat]) => {
-          const key = \`\${lat},\${lon}\`;
+          const key = `${lat},${lon}`;
           if (!visited.has(key)) {
             visited.add(key);
             queue.push([lat, lon]);
